@@ -1,47 +1,29 @@
-let questions = [
-    {
-        "question": "Wer hat HTML erfunden?",
-        "answer_1": "Beispiel-Antwort 1",
-        "answer_2": "Beispiel-Antwort 2",
-        "answer_3": "Beispiel-Antwort 3",
-        "answer_4": "Beispiel-Antwort 4",
-        "right answer": 3,
-    },
-    {
-        "question": "Wie heißt der beste Lehrer?",
-        "answer_1": "Max Maier",
-        "answer_2": "Müller Franz",
-        "answer_3": "Thomas Musterknabe",
-        "answer_4": "Lukas Klammer",
-        "right answer": 4,
-    },
-    {
-        "question": "DNA ist die Abkürzung für?",
-        "answer_1": "DesoxyriboNucleicAcid",
-        "answer_2": "Da nenn alles.",
-        "answer_3": "Du naschst Ananas.",
-        "answer_4": "Des nimm alles.",
-        "right answer": 1,
-    }
-];
-
+/**Gibt die Nummer der aktuellen Frage an. Startet bei 0, weil arrays immer bei 0 starten */
 let currentQuestion = 0;
 
+/**Gibt die erreichte Punktzahl an. */
+let score = 0;
+
+
+/**Wird aufgerufen, wenn die App neu geladen oder der replay-Button gedrückt wird. */
 function init() {
-    document.getElementById('all-questions').innerHTML = questions.length; // rendert die Gesamtzahl der Fragen; das ist nur am Beginn nötig, Gesamtzahl der Fragen ändert sich während Beantwortung nicht
+    document.getElementById('all-questions').innerHTML = questions.length; // rendert den string Gesamtzahl der Fragen; das ist nur am Beginn nötig, Gesamtzahl der Fragen ändert sich während Beantwortung nicht
     showQuestion(); // rendert die einzelne Frage
 }
 
 
 function showQuestion() {
-    let question = questions[currentQuestion];
+    let question = questions[currentQuestion]; // aktuelle Frage aus dem JSON holen und in ein array speichern
 
-    document.getElementById('current-question').innerHTML = currentQuestion + 1; // rendert die Nummer der aktuellen Frage; +1 braucht es, weil array mit 0 beginnt
-    document.getElementById('question-text').innerHTML = question['question']; // rendert die Frage
-
-    for (let i = 1; i < 5; i++) {
-        resetAnswerButtons(i);
-        renderSingleAnswer(question, i);
+    if (currentQuestion >= questions.length) {
+        showEndScreen(); // am Ende des Quizzes End-Bildschirm zeigen
+    }
+    else { // wenn noch nicht am Ende angelangt kommt nächste Frage
+        renderQuestionAndNumber(question); // rendert nächste Frage
+        for (let i = 1; i < 5; i++) {
+            resetAnswerButtons(i); // setzt die Farben der Antwortmöglichkeiten zurück
+            renderSingleAnswer(question, i);  // rendert die Antwortmöglichkeiten
+        }
     }
 }
 
@@ -54,6 +36,7 @@ function answer(selectedAnswer) {
 
     if (selectedAnswer == rightAnswerAsText) { // wenn die beiden strings übereinstimmen (z. B. answer_1 == answer_1) --> mache was
         document.getElementById(selectedAnswer).parentNode.classList.add('bg-success');
+        score++; // wenn richtige Antwort, erhöhe die Punktzahl um 1
     }
     else if (selectedAnswer != rightAnswerAsText) {
         document.getElementById(selectedAnswer).parentNode.classList.add('bg-danger');
@@ -75,16 +58,48 @@ function resetAnswerButtons(i) {
 }
 
 
+function renderQuestionAndNumber(question) {
+    document.getElementById('current-question').innerHTML = currentQuestion + 1; // rendert die Nummer der aktuellen Frage; +1 braucht es, weil array mit 0 beginnt
+    document.getElementById('question-text').innerHTML = question['question']; // rendert die Frage
+}
+
+
 function renderSingleAnswer(question, i) {
     document.getElementById('answer_' + i).innerHTML = question['answer_' + i]; // rendert die einzelne Antwort aus dem Array, durch die for-Schleife hintereinander
 }
 
 
+/**aktiviert den button, der zur nächsten Frage führt */
 function enableNextQuestion() {
     document.getElementById('next-button').disabled = false; // button aktivieren, damit wir weiter zur nächsten Frage kommen
 }
 
 
+/**deaktiviert den button, der zur nächsten Frage führt */
 function disableNextQuestion() {
     document.getElementById('next-button').disabled = true; // button deaktivieren
+}
+
+
+/**zeigt den End-Screen mit den Ergebnissen und der Möglichkeit zum Neustart */
+function showEndScreen() {
+    document.getElementById('end-screen').classList.remove('d-none'); // Klasse d-none entfernen --> Element wird angezeigt
+    document.getElementById('question-body').classList.add('d-none'); // Fragen-Container ausblenden
+    document.getElementById('end-score').innerHTML = score + '/' + questions.length;
+}
+
+
+/**zeigt den Screen mit den Fragen und Antworten */
+function showQuestionScreen() {
+    document.getElementById('question-body').classList.remove('d-none'); // Fragen-Container ausblenden
+    document.getElementById('end-screen').classList.add('d-none'); // Klasse d-none entfernen --> Element wird angezeigt
+}
+
+
+/**replay: damit kann das Quiz neu gestartet werden */
+function replay() {
+    currentQuestion = 0;
+    score = 0;
+    showQuestionScreen();
+    init();
 }

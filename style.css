@@ -7,7 +7,11 @@ body {
     min-height: 100vh;
     display: flex;
     justify-content: center;
-    align-items: center;
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
 }
 
 .question-footer {
@@ -29,4 +33,20 @@ body {
 
 .bg-success, .bg-danger {
     color: white;
+}
+
+.d-none {
+    display: none;
+}
+
+.width-100 {
+    width: 100%;
+}
+
+.width-50 {
+    width: 50%;
+}
+
+.text-center {
+    text-align: center;
 }
