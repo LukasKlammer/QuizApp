@@ -4,6 +4,8 @@ let currentQuestion = 0;
 /**Gibt die erreichte Punktzahl an. */
 let score = 0;
 
+let AUDIO_SUCCESS = new Audio('audio/success.mp3');
+let AUDIO_FAIL = new Audio('audio/fail.mp3');
 
 /**Wird aufgerufen, wenn die App neu geladen oder der replay-Button gedrückt wird. */
 function init() {
@@ -37,11 +39,13 @@ function answer(selectedAnswer) {
 
     if (selectedAnswer == rightAnswerAsText) { // wenn die beiden strings übereinstimmen (z. B. answer_1 == answer_1) --> mache was
         document.getElementById(selectedAnswer).parentNode.classList.add('bg-success');
+        AUDIO_SUCCESS.play(); // success Ton abspielen
         score++; // wenn richtige Antwort, erhöhe die Punktzahl um 1
     }
     else if (selectedAnswer != rightAnswerAsText) {
         document.getElementById(selectedAnswer).parentNode.classList.add('bg-danger');
         document.getElementById(rightAnswerAsText).parentNode.classList.add('bg-success');
+        AUDIO_FAIL.play(); // fail Ton abspielen
     }
     enableNextQuestion();
 }
@@ -95,16 +99,16 @@ function showEndScreen() {
 function showQuestionScreen() {
     document.getElementById('question-body').classList.remove('d-none'); // Fragen-Container ausblenden
     document.getElementById('end-screen').classList.add('d-none'); // Klasse d-none entfernen --> Element wird angezeigt
-    document.getElementById('header-image').src = 'img/pencil.jpg';
+    document.getElementById('header-image').src = 'img/pencil.jpg'; // Bild wieder zurücksetzen
 }
 
 
 /**replay: damit kann das Quiz neu gestartet werden */
 function replay() {
-    currentQuestion = 0;
+    currentQuestion = 0; // Variablen zurücksetzen
     score = 0;
-    showQuestionScreen();
-    init();
+    showQuestionScreen(); // wieder zurück zum Container mit den Fragen
+    init(); // Quiz neu starten
 }
 
 
