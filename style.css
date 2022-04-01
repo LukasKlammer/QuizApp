@@ -2,6 +2,11 @@ body {
     background-color: #27355C !important;
 }
 
+h5 {
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+
 .container {
     background-color: #27355C !important;
     min-height: 100vh;

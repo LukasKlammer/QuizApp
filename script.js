@@ -20,6 +20,7 @@ function showQuestion() {
     }
     else { // wenn noch nicht am Ende angelangt kommt nächste Frage
         renderQuestionAndNumber(question); // rendert nächste Frage
+        renderProgressBar(question);
         for (let i = 1; i < 5; i++) {
             resetAnswerButtons(i); // setzt die Farben der Antwortmöglichkeiten zurück
             renderSingleAnswer(question, i);  // rendert die Antwortmöglichkeiten
@@ -85,7 +86,8 @@ function disableNextQuestion() {
 function showEndScreen() {
     document.getElementById('end-screen').classList.remove('d-none'); // Klasse d-none entfernen --> Element wird angezeigt
     document.getElementById('question-body').classList.add('d-none'); // Fragen-Container ausblenden
-    document.getElementById('end-score').innerHTML = score + '/' + questions.length;
+    document.getElementById('header-image').src = 'img/brain_result.png'; // ändert das Bild
+    document.getElementById('end-score').innerHTML = score + '/' + questions.length; // zeigt an, wie viele von insgesamt wie vielen Fragen man richtig beantwortet hat
 }
 
 
@@ -93,6 +95,7 @@ function showEndScreen() {
 function showQuestionScreen() {
     document.getElementById('question-body').classList.remove('d-none'); // Fragen-Container ausblenden
     document.getElementById('end-screen').classList.add('d-none'); // Klasse d-none entfernen --> Element wird angezeigt
+    document.getElementById('header-image').src = 'img/pencil.jpg';
 }
 
 
@@ -102,4 +105,14 @@ function replay() {
     score = 0;
     showQuestionScreen();
     init();
+}
+
+
+/**rendert den Verlauf der Progress-Bar */
+function renderProgressBar(question) {
+    let percentage = ((currentQuestion + 1) * 100) / questions.length; // Prozentsatz berechnen
+    percentage = Math.round(percentage); // Ergebnis runden mit JavaScript Funktion
+
+    document.getElementById('progress-bar').style = `width: ${percentage}%`; // Breite der progressbar einsetzen
+    document.getElementById('progress-bar').innerHTML = percentage + ' %'; // Prozentsatz in der progressbar einsetzen
 }
