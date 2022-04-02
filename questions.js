@@ -1,6 +1,6 @@
 
 /** Hier werden alle Fragen und die Antworten gespeichert. Format: JSON */
-let questions = [
+let genetics = [
     {
         "question": "Wie bezeichnet man Down Syndrom noch?",
         "answer_1": "Trisomie 21",
@@ -81,4 +81,64 @@ let questions = [
         "answer_4": "Down-Syndrom",
         "right answer": 4,
     }
+];
+
+
+let proportionality = [
+    {
+        "question": "Proportionalität?",
+        "answer_1": "Trisomie 21",
+        "answer_2": "Chromosom",
+        "answer_3": "Trisome 22",
+        "answer_4": "Chromosom 22",
+        "right answer": 1,
+    },
+    {
+        "question": "Welcmie 21 wurde abgeschafft, da sie diskriminierend war?",
+        "answer_1": "Mangolismus",
+        "answer_2": "Mongolis",
+        "answer_3": "Mongolismus",
+        "answer_4": "Mangolismus",
+        "right answer": 3,
+    },
+];
+
+
+let percentCalculation = [
+    {
+        "question": "Prozent?",
+        "answer_1": "Trisomie 21",
+        "answer_2": "Chromosom",
+        "answer_3": "Trisome 22",
+        "answer_4": "Chromosom 22",
+        "right answer": 1,
+    },
+    {
+        "question": "Welcmie 21 wurde abgeschafft, da sie diskriminierend war?",
+        "answer_1": "Mangolismus",
+        "answer_2": "Mongolis",
+        "answer_3": "Mongolismus",
+        "answer_4": "Mangolismus",
+        "right answer": 3,
+    },
+];
+
+
+let circle = [
+    {
+        "question": "Kreis?",
+        "answer_1": "Trisomie 21",
+        "answer_2": "Chromosom",
+        "answer_3": "Trisome 22",
+        "answer_4": "Chromosom 22",
+        "right answer": 1,
+    },
+    {
+        "question": "Welcmie 21 wurde abgeschafft, da sie diskriminierend war?",
+        "answer_1": "Mangolismus",
+        "answer_2": "Mongolis",
+        "answer_3": "Mongolismus",
+        "answer_4": "Mangolismus",
+        "right answer": 3,
+    },
 ];

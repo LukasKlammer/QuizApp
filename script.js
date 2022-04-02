@@ -4,19 +4,55 @@ let currentQuestion = 0;
 /**Gibt die erreichte Punktzahl an. */
 let score = 0;
 
+/**Gibt an, welches Quiz gewählt wurde und geladen werden soll */
+let selectedQuiz = genetics;
+
 let AUDIO_SUCCESS = new Audio('audio/success.mp3');
 let AUDIO_FAIL = new Audio('audio/fail.mp3');
 
-/**Wird aufgerufen, wenn die App neu geladen oder der replay-Button gedrückt wird. */
-function init() {
-    document.getElementById('all-questions').innerHTML = questions.length; // rendert den string Gesamtzahl der Fragen; das ist nur am Beginn nötig, Gesamtzahl der Fragen ändert sich während Beantwortung nicht
-    showQuestion(); // rendert die einzelne Frage
+
+/**wählt das gewünschte Quiz aus und initialisiert es */
+function chooseQuiz(choice) {
+    selectQuiz(choice);
+    removeWhiteBarOfLinks();
+    setWhiteBarOfLink(choice);
+    restart();
 }
 
 
-/**lädt die richtigen Fragen */
-function getQuestions(topic) {
-    let questions = genetics;
+/** entferne alle weißen Balken bei den Links */
+function removeWhiteBarOfLinks() {
+    document.getElementById('genetics').classList.remove('active');
+    document.getElementById('proportionality').classList.remove('active');
+    document.getElementById('percentCalculation').classList.remove('active');
+    document.getElementById('circle').classList.remove('active');
+}
+
+
+/** entferne alle weißen Balken bei den Links */
+function setWhiteBarOfLink(choice) {
+    document.getElementById(choice).classList.add('active');
+}
+
+
+/**wähle das richtige Quiz aus und schreibe es ins Array selectedQuiz */
+function selectQuiz(choice) {
+    if (choice == 'genetics') {
+        selectedQuiz = genetics;
+    } else if (choice == 'proportionality') {
+        selectedQuiz = proportionality;
+    } else if (choice == 'percentCalculation') {
+        selectedQuiz = percentCalculation;
+    } else if (choice == 'circle') {
+        selectedQuiz = circle;
+    }
+}
+
+
+/**Wird aufgerufen, wenn die App neu geladen oder der replay-Button gedrückt wird. */
+function init() {
+    document.getElementById('all-questions').innerHTML = selectedQuiz.length; // rendert den string Gesamtzahl der Fragen; das ist nur am Beginn nötig, Gesamtzahl der Fragen ändert sich während Beantwortung nicht
+    showQuestion(); // rendert die einzelne Frage
 }
 
 
@@ -28,9 +64,9 @@ function openQuiz() {
 
 /**rendert die Fragen, sofern nicht bereits die letzte Frage aufgerufen wurde */
 function showQuestion() {
-    let question = questions[currentQuestion]; // aktuelle Frage aus dem JSON holen und in ein array speichern
+    let question = selectedQuiz[currentQuestion]; // aktuelle Frage aus dem JSON holen und in ein array speichern
 
-    if (currentQuestion >= questions.length) {
+    if (currentQuestion >= selectedQuiz.length) {
         showEndScreen(); // am Ende des Quizzes End-Bildschirm zeigen
     }
     else { // wenn noch nicht am Ende angelangt kommt nächste Frage
@@ -46,7 +82,7 @@ function showQuestion() {
 
 function answer(selectedAnswer) {
     // let selectedAnswerNumber = selectedAnswer.slice(-1);  // Alternative: damit lesen wir das letzte Zeichen aus dem übergebenen String raus
-    let question = questions[currentQuestion] // holt die aktuelle Frage in aus dem JSON und schreibt sie in die Variable question
+    let question = selectedQuiz[currentQuestion] // holt die aktuelle Frage in aus dem JSON und schreibt sie in die Variable question
     let rightAnswer = question["right answer"]; // aus der aktuellen Frage die richtige Antwort auslesen und in die Variable rightAnswer geben (Antwort ist eine Zahl)
     let rightAnswerAsText = `answer_${rightAnswer}`;
 
@@ -67,7 +103,7 @@ function answer(selectedAnswer) {
 function nextQuestion() {
     disableNextQuestion();
     currentQuestion++; // Variable um 1 erhöhen, gibt die Nummer der aktuellen Frage an
-    showQuestion();
+    showQuestion(selectedQuiz);
 }
 
 
@@ -105,7 +141,7 @@ function showEndScreen() {
     document.getElementById('question-body').classList.add('d-none'); // Fragen-Container ausblenden
     document.getElementById('header-image').src = 'img/brain_result.png'; // ändert das Bild
     document.getElementById('header-image').classList.add('width-50'); // verkleinert das Bild, damit es besser aussieht
-    document.getElementById('end-score').innerHTML = score + '/' + questions.length; // zeigt an, wie viele von insgesamt wie vielen Fragen man richtig beantwortet hat
+    document.getElementById('end-score').innerHTML = score + '/' + selectedQuiz.length; // zeigt an, wie viele von insgesamt wie vielen Fragen man richtig beantwortet hat
 }
 
 
@@ -148,7 +184,7 @@ function restart() {
 
 /**rendert den Verlauf der Progress-Bar */
 function renderProgressBar(question) {
-    let percentage = ((currentQuestion + 1) * 100) / questions.length; // Prozentsatz berechnen
+    let percentage = ((currentQuestion + 1) * 100) / selectedQuiz.length; // Prozentsatz berechnen
     percentage = Math.round(percentage); // Ergebnis runden mit JavaScript Funktion
     document.getElementById('progress-bar').style = `width: ${percentage}%`; // Breite der progressbar einsetzen
     document.getElementById('progress-bar').innerHTML = percentage + ' %'; // Prozentsatz in der progressbar einsetzen

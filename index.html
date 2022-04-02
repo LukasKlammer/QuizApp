@@ -39,16 +39,16 @@
             </a>
             <ul class="nav">
                 <li class="nav-item">
-                    <a class="nav-link active text-white" aria-current="page" href="#">Genetics</a>
+                    <a class="nav-link active text-white" id="genetics" aria-current="page" onclick="chooseQuiz('genetics')">Genetics</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="#">Thema 2</a>
+                    <a class="nav-link text-white" id="proportionality" onclick="chooseQuiz('proportionality')">Proportionalität</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="#">Thema 3</a>
+                    <a class="nav-link text-white" id="percentCalculation" onclick="chooseQuiz('percentCalculation')">Prozentrechnung</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white">Thema 4</a>
+                    <a class="nav-link text-white" id="circle" onclick="chooseQuiz('circle')">Kreis</a>
                 </li>
             </ul>
         </nav>
@@ -108,7 +108,7 @@
                 </div>
 
                 <div class="card-body d-none" id="end-screen">
-                    <h1 class="text-center">COMPLETE GENETIC QUIZ</h1>
+                    <h1 class="text-center">QUIZ COMPLETED</h1>
                     <div class="text-center">
                         <span class="text-center">YOUR SCORE IS</span>
                         <span id="end-score">... / ...</span>

@@ -38,6 +38,7 @@ h5 {
     padding-right: 10px !important;
     padding-top: 2px !important;
     padding-bottom: 2px !important;
+    cursor: pointer;
 }
 
 .active, .nav-link:hover {
