@@ -1,0 +1,32 @@
+@media (max-width: 800px) {
+
+    .mobile-d-none {
+        display: none !important;
+    }
+
+    .main {
+        flex-direction: column;
+    }
+    
+    .navbar {
+        width: unset;
+        flex-direction: row;
+
+    }
+    
+    .nav {
+        flex-direction: row !important;
+        justify-content: center;
+    }
+
+    .navbar-brand img {
+        height: 45px;
+    }
+
+    .active, .nav-link:hover {
+        font-weight: bold;
+        border-bottom: 3px solid white;
+        border-left: unset;
+    }
+
+}

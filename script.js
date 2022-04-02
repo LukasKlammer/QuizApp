@@ -14,6 +14,19 @@ function init() {
 }
 
 
+/**lädt die richtigen Fragen */
+function getQuestions(topic) {
+    let questions = genetics;
+}
+
+
+/**Öffnet das Quiz */
+function openQuiz() {
+    showQuestionScreen();
+}
+
+
+/**rendert die Fragen, sofern nicht bereits die letzte Frage aufgerufen wurde */
 function showQuestion() {
     let question = questions[currentQuestion]; // aktuelle Frage aus dem JSON holen und in ein array speichern
 
@@ -91,19 +104,31 @@ function showEndScreen() {
     document.getElementById('end-screen').classList.remove('d-none'); // Klasse d-none entfernen --> Element wird angezeigt
     document.getElementById('question-body').classList.add('d-none'); // Fragen-Container ausblenden
     document.getElementById('header-image').src = 'img/brain_result.png'; // ändert das Bild
+    document.getElementById('header-image').classList.add('width-50'); // verkleinert das Bild, damit es besser aussieht
     document.getElementById('end-score').innerHTML = score + '/' + questions.length; // zeigt an, wie viele von insgesamt wie vielen Fragen man richtig beantwortet hat
 }
 
 
 /**zeigt den Screen mit den Fragen und Antworten */
 function showQuestionScreen() {
-    document.getElementById('question-body').classList.remove('d-none'); // Fragen-Container ausblenden
-    document.getElementById('end-screen').classList.add('d-none'); // Klasse d-none entfernen --> Element wird angezeigt
+    document.getElementById('start-screen').classList.add('d-none');
+    document.getElementById('question-body').classList.remove('d-none'); // Fragen-Container einblenden
+    document.getElementById('end-screen').classList.add('d-none'); // Klasse d-none hinzufügen --> Element wird ausgeblendet
+    document.getElementById('header-image').classList.remove('width-50'); // wieder normale Größe des Bilds
     document.getElementById('header-image').src = 'img/pencil.jpg'; // Bild wieder zurücksetzen
 }
 
+/**zeigt die Startseite */
+function showWelcomeScreen() {
+    document.getElementById('end-screen').classList.add('d-none');
+    document.getElementById('question-body').classList.add('d-none');
+    document.getElementById('start-screen').classList.remove('d-none');
+    document.getElementById('header-image').classList.remove('width-50'); // wieder normale Größe des Bilds
+    document.getElementById('header-image').src = 'img/team.jpg';
+}
 
-/**replay: damit kann das Quiz neu gestartet werden */
+
+/**replay: damit kann das gleiche Quiz nochmal gespielt werden */
 function replay() {
     currentQuestion = 0; // Variablen zurücksetzen
     score = 0;
@@ -112,11 +137,19 @@ function replay() {
 }
 
 
+/**restart: damit kann die App neu gestartet werden */
+function restart() {
+    currentQuestion = 0; // Variablen zurücksetzen
+    score = 0;
+    showWelcomeScreen();
+    init();
+}
+
+
 /**rendert den Verlauf der Progress-Bar */
 function renderProgressBar(question) {
     let percentage = ((currentQuestion + 1) * 100) / questions.length; // Prozentsatz berechnen
     percentage = Math.round(percentage); // Ergebnis runden mit JavaScript Funktion
-
     document.getElementById('progress-bar').style = `width: ${percentage}%`; // Breite der progressbar einsetzen
     document.getElementById('progress-bar').innerHTML = percentage + ' %'; // Prozentsatz in der progressbar einsetzen
 }

@@ -1,5 +1,11 @@
 body {
     background-color: #27355C !important;
+    font-family: 'PT Sans', sans-serif;
+}
+
+h1 {
+    margin-top: 12px !important;
+    margin-bottom: 12px !important;
 }
 
 h5 {
@@ -7,16 +13,55 @@ h5 {
     padding-bottom: 12px;
 }
 
+.main {
+    display: flex;
+}
+
+.navbar {
+    background-color:  #27355C;
+    width: 300px;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.navbar-brand img {
+    height: 100px;
+}
+
+.nav {
+    flex-direction: column;
+    gap: 14px;
+}
+
+.nav-link {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+    padding-top: 2px !important;
+    padding-bottom: 2px !important;
+}
+
+.active, .nav-link:hover {
+    font-weight: bold;
+    border-left: 5px solid white
+}
+
 .container {
-    background-color: #27355C !important;
+    background-color: #F7F7F7;
     min-height: 100vh;
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 .card-body {
     display: flex;
     flex-direction: column;
+    width: 100%;
+}
+
+.start-button {
+    background-color: #FF4D12 !important;
+    color: white !important;
 }
 
 .question-footer {
@@ -49,7 +94,7 @@ h5 {
 }
 
 .width-50 {
-    width: 50%;
+    width: 50% !important;
 }
 
 .text-center {
