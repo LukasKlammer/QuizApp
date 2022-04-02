@@ -29,4 +29,12 @@
         border-left: unset;
     }
 
+    .quiz-card {
+        width: 100% !important;
+    }
+
+    .container {
+        min-height: 70vh;
+    }
+
 }
