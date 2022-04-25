@@ -69,6 +69,11 @@ function showQuestion() {
 }
 
 
+/**
+ * this function colors the answers, reaction depends if answer is right or not
+ * 
+ * @param {string} selectedAnswer this parameter gives you the name of the answer that user selected
+ */
 function answer(selectedAnswer) {
     let question = selectedQuiz[currentQuestion] // holt die aktuelle Frage in aus dem JSON und schreibt sie in die Variable question
     let rightAnswerAsText = `answer_${question["right answer"]}`;
@@ -85,6 +90,11 @@ function answer(selectedAnswer) {
 }
 
 
+/**
+ * this function signs the right question, if user found that
+ * 
+ * @param {string} selectedAnswer this parameter gives you the name of the answer that user selected
+ */
 function reactionRightAnswer(selectedAnswer) {
     document.getElementById(selectedAnswer).parentNode.classList.add('bg-success');
     AUDIO_SUCCESS.play();
@@ -92,9 +102,15 @@ function reactionRightAnswer(selectedAnswer) {
 }
 
 
+/**
+ * this function dissolves the question answers if user wasn't able to
+ * 
+ * @param {string} selectedAnswer selected answer from user
+ * @param {string} rightAnswerAsText right answer for the question
+ */
 function reactionWrongAnswer(selectedAnswer, rightAnswerAsText) {
-    document.getElementById(selectedAnswer).parentNode.classList.add('bg-danger');
-    document.getElementById(rightAnswerAsText).parentNode.classList.add('bg-success');
+    document.getElementById(selectedAnswer).parentNode.classList.add('bg-danger'); // shows the wrong answer
+    document.getElementById(rightAnswerAsText).parentNode.classList.add('bg-success'); // shows the right answer
     AUDIO_FAIL.play();
 }
 
@@ -137,7 +153,7 @@ function disableNextQuestion() {
     document.getElementById('next-button').disabled = true; // button deaktivieren
 }
 
-/**disable pointer event Antwort-Karten */
+/**disable pointer event answer card*/
 function lockAnswers() {
     for (i = 1; i < 5; i++) {
         document.getElementById('answer_' + i).style.pointerEvents = 'none';
@@ -145,6 +161,7 @@ function lockAnswers() {
 }
 
 
+/**enebla pointer event answer card */
 function unLockAnswers() {
     for (i = 1; i < 5; i++) {
         document.getElementById('answer_' + i).style.pointerEvents = 'auto';
