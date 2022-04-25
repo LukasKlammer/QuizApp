@@ -239,7 +239,7 @@ let percentCalculation = [
         "answer_2": "Prozentsatz",
         "answer_3": "Prozentwert",
         "answer_4": "Proportionalität",
-        "right answer": 1,
+        "right answer": 3,
     },
     {
         "question": "Wie viel Prozent ist die Hälfte von der Hälfte?",
